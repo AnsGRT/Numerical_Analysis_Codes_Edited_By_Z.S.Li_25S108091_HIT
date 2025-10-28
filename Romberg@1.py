@@ -48,7 +48,7 @@ for idx, f in enumerate(functions):
     print("Romberg 表（左对齐上三角，16位数字）:")
     for j in range(n):
         row_label = labels[j] if j < len(labels) else f"R{j}"
-        vals = [f"{T[k, j]:16.8f}" for k in range(j, n)]  # 固定16位显示
+        vals = [f"{T[k, j]:16.8f}" for k in range(j, n)]
         print(f"{row_label}: " + " ".join(vals))
 
     best = T[n - 1, n - 1]
@@ -72,12 +72,18 @@ for idx, f in enumerate(functions):
                          loc='center')
     the_table.auto_set_font_size(False)
     the_table.set_fontsize(10)
-    the_table.scale(1.3, 1.3)  # 放大单元格
+    the_table.scale(1.3, 1.3)
     for (r, c), cell in the_table.get_celld().items():
         cell.set_edgecolor('black')
         if cell.get_text().get_text() == "":
             cell.set_facecolor('#f0f0f0')
-    plt.tight_layout()
-    plt.show()
 
+    plt.tight_layout()
+
+    # 自动保存图片
+    filename = f"Romberg_{names[idx].replace('/', '_')}.png"
+    plt.savefig(filename, dpi=300)
+    print(f"已保存图片: {filename}")
+
+    plt.show()
 
