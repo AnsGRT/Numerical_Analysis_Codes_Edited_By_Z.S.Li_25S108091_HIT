@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-# 被积函数
+# Intergrated Function
 def f1(x):
     return x ** 3
 
@@ -15,7 +15,7 @@ def f3(x):
     return np.sin(x ** 2)
 
 
-# Romberg 积分
+# Romberg Intergration
 def romberg(f, a, b, tol=1e-12, max_level=5):
     T = np.zeros((max_level, max_level), dtype=float)
     T[0, 0] = 0.5 * (b - a) * (f(a) + f(b))
@@ -32,29 +32,29 @@ def romberg(f, a, b, tol=1e-12, max_level=5):
     return T
 
 
-# 测试参数
+# Parameters
 functions = [f1, f2, f3]
 a_values = [6.0, 0.0, 0.0]
 b_values = [100.0, 1.0, 1.0]
 names = ["x^3", "sin(x)/x", "sin(x^2)"]
 
 for idx, f in enumerate(functions):
-    print(f"\n=== Romberg 积分: ∫{names[idx]} dx [{a_values[idx]}, {b_values[idx]}] ===")
+    print(f"\n=== Romberg Integration: ∫{names[idx]} dx [{a_values[idx]}, {b_values[idx]}] ===")
     T = romberg(f, a_values[idx], b_values[idx], tol=1e-12, max_level=5)
     n = T.shape[0]
 
-    # 控制台输出
+    # Output
     labels = ["T", "S", "C", "K", "L"]
-    print("Romberg 表（左对齐上三角，16位数字）:")
+    print("Romberg Table:")
     for j in range(n):
         row_label = labels[j] if j < len(labels) else f"R{j}"
         vals = [f"{T[k, j]:16.8f}" for k in range(j, n)]
         print(f"{row_label}: " + " ".join(vals))
 
     best = T[n - 1, n - 1]
-    print(f"最精确值 = {best:16.12f}")
+    print(f"Final Value = {best:16.12f}")
 
-    # 表格绘制
+    # Plot
     cell_text = []
     row_labels = [labels[j] for j in range(n)]
     col_labels = [str(2 ** k) for k in range(n)]
@@ -80,10 +80,10 @@ for idx, f in enumerate(functions):
 
     plt.tight_layout()
 
-    # 自动保存图片
+    # Auto Saving
     filename = f"Romberg_{names[idx].replace('/', '_')}.png"
     plt.savefig(filename, dpi=300)
-    print(f"已保存图片: {filename}")
+    print(f"Saved: {filename}")
 
     plt.show()
 
