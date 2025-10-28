@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-# Intergrated Function
+# Integrated Function
 def f1(x):
     return x ** 3
 
@@ -15,7 +15,7 @@ def f3(x):
     return np.sin(x ** 2)
 
 
-# Romberg Intergration
+# Romberg Integration
 def romberg(f, a, b, tol=1e-12, max_level=5):
     T = np.zeros((max_level, max_level), dtype=float)
     T[0, 0] = 0.5 * (b - a) * (f(a) + f(b))
